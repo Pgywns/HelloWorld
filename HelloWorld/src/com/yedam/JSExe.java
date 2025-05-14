@@ -1,7 +1,5 @@
 package com.yedam;
 
-import com.sun.jdi.VoidType;
-
 public class JSExe {
 	public static void main(String[] args) {
 		// 임의의 수를 생성 (1 ~ 100사이의 임의의 값)
