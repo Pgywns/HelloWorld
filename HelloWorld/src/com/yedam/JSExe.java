@@ -8,7 +8,7 @@ public class JSExe {
 		// 1 <= x < 11
 		int sum = 0;
 		for (int i = 1; i <= 5; i++) {
-			int result = (int) (Math.random() * 10) + 1;
+			int result = (int) (Math.random() * 100) + 1;
 			System.out.println(result);
 			sum += result;
 		}
