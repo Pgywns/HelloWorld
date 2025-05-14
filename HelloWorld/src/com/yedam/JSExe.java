@@ -16,7 +16,7 @@ public class JSExe {
 //		System.out.println(str1);
 //		System.out.println(str2);
 
-		System.out.println(str1.equals(str2));
+//		System.out.println(str1.equals(str2));
 
 //		test2();
 		// test3();
