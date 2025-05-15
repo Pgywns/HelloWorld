@@ -1,7 +1,5 @@
 package com.yedam;
 
-import java.util.Iterator;
-
 public class HelloJava {
 	public static void main(String[] args) {
 		// int(정수), double(실수), boolean(참, 거짓)
