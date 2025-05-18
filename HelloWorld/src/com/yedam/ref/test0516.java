@@ -3,6 +3,7 @@ package com.yedam.ref;
 import java.util.Scanner;
 
 public class test0516 {
+	
 	public static void main(String[] args) {
 		boolean run = true;
 		int studentNum = 0;
@@ -55,7 +56,6 @@ public class test0516 {
 			}
 		}
 		
-		System.out.println("프로그램 종료");
-		
-	}
+		System.out.println("프로그램 종료");		
+	} // main
 }

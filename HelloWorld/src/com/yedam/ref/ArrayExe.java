@@ -34,7 +34,7 @@ public class ArrayExe {
 						break;
 					} else {
 						if (friendAry[i].equals(name)) {
-							System.out.print("추가하시겠습니까? 추가 (1) / 취소(2) >> ");
+							System.out.print("추가하시겠습니까? 추가(1) / 취소(2) >> ");
 							int select = Integer.parseInt(scn.nextLine());
 							
 							if (select == 2) {
@@ -97,7 +97,7 @@ public class ArrayExe {
 
 		}
 		System.out.println("end of prog");
-	}
+	} // friendApp
 
 	public static void deleteAry() {
 		Scanner scn = new Scanner(System.in);
@@ -122,7 +122,7 @@ public class ArrayExe {
 			}
 		}
 
-	}
+	} // deleteAry
 
 	public static void strAry() {
 		Scanner scn = new Scanner(System.in);
