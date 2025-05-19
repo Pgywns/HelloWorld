@@ -17,7 +17,7 @@ public class MemberExe {
 		Scanner scn = new Scanner(System.in);
 		boolean run = true;
 		Member[] memberAry = new Member[100];
-
+		
 		while (run) {
 			System.out.println("---------------------------------------------");
 			System.out.println("1.추가 | 2.수정 | 3.삭제 | 4.조회 | 5.종료");
