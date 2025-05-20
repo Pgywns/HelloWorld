@@ -57,5 +57,19 @@ public class Board {
 		this.writer = writer;
 	}
 	
+	// 글 번호, 제목, 작성자 => 간략출력
+	public void showInfo() {
+		System.out.printf("%3d %11s %5s\n", boardNo, title, writer);
+	}
+	
+	public void showAllInfo() {
+		// 글번호: 5    작성자: 홍길동
+		// 제목: 날씨가 좋아요
+		// 내용: 오늘 30도가 넘는데도 좋아요
+		String strFormat = "글번호: %d    작성자: %s\n";
+		strFormat += "제목: %s\n";
+		strFormat += "내용: %s\n";
+		System.out.printf(strFormat, boardNo, writer, title, content);
+	}
 	
 }
