@@ -6,7 +6,6 @@ package com.yedam.inheritance;
  		- Model, Color
  	자식: SmartPhone
  		- TV 보기
- 	
 */
 
 // extends Object가 생략되어 있어서 Object가 가지고 있는 것들을 물려받음

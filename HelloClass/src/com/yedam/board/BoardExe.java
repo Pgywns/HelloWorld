@@ -23,7 +23,7 @@ public class BoardExe {
 //		boards = new Board[100];
 		boards[0] = new Board(1, "11", "11", "11");
 		boards[1] = new Board(2, "22", "22", "22");
-		boards[2] = new Board(3, "33", "33", "33");
+		boards[2] = new Board(13, "33", "33", "33");
 		boards[3] = new Board(4, "44", "44", "44");
 		boards[4] = new Board(5, "55", "55", "55");
 		boards[5] = new Board(6, "66", "66", "66");
@@ -45,18 +45,17 @@ public class BoardExe {
 			String id = userMessage("아이디를 입력해주세요");
 			// 비밀번호 입력
 			String pw = userMessage("비밀번호를 입력해주세요");
-			
+						
 			if (!UserExe.login(id, pw)) {
-				System.out.println("회원정보를 다시 확인해주세요");
 				count++;
+				if (count == 3) {
+					System.out.println("로그인 시도가 3회로 종료되었습니다.");
+					return;
+				}
+				System.out.println("회원정보를 다시 확인해주세요");
 			} else {
 				System.out.printf("%s님 환영합니다.\n\n", id);
 				break;
-			}
-			
-			if (count == 3) {
-				System.out.println("로그인 시도가 3회로 종료되었습니다.");
-				return;
 			}
 		}
 
