@@ -17,13 +17,13 @@ public class BoardExe {
 	// 필드
 	private Board[] boards = new Board[100];
 	private Scanner scn = new Scanner(System.in);
-	
+
 	// 생성자
 	public BoardExe() {
 //		boards = new Board[100];
 		boards[0] = new Board(1, "11", "11", "11");
 		boards[1] = new Board(2, "22", "22", "22");
-		boards[2] = new Board(13, "33", "33", "33");
+		boards[2] = new Board(3, "33", "33", "33");
 		boards[3] = new Board(4, "44", "44", "44");
 		boards[4] = new Board(5, "55", "55", "55");
 		boards[5] = new Board(6, "66", "66", "66");
@@ -35,35 +35,51 @@ public class BoardExe {
 		boards[11] = new Board(12, "12", "12", "12");
 	}
 
-	// 메소드
-	void execute() {
-		boolean run = true;
+	// loginCheck()
+	boolean loginCheck() {
 		int count = 0;
-		
-		while(true) {
+
+		while (true) {
 			// 아이디 입력
 			String id = userMessage("아이디를 입력해주세요");
 			// 비밀번호 입력
 			String pw = userMessage("비밀번호를 입력해주세요");
-						
+
 			if (!UserExe.login(id, pw)) {
 				count++;
 				if (count == 3) {
 					System.out.println("로그인 시도가 3회로 종료되었습니다.");
-					return;
+					return false;
 				}
 				System.out.println("회원정보를 다시 확인해주세요");
 			} else {
 				System.out.printf("%s님 환영합니다.\n\n", id);
-				break;
+				return true;
 			}
+		} // while
+
+	} // loginCheck
+
+	// 메소드
+	void execute() {
+		boolean run = true;
+
+		if (!loginCheck()) {
+			return;
 		}
 
 		while (run) {
 			System.out.println("-------------------------------------------------");
 			System.out.println("1.추가 | 2.수정 | 3.삭제 | 4.목록 | 5. 달력 | 6.종료");
 			System.out.println("-------------------------------------------------");
-			int selectNo = userMenu("선택");
+			int selectNo = 0;
+
+			try {
+				selectNo = userMenu("선택");
+			} catch (NumberFormatException e) {
+				System.out.println("1 ~ 5번중에 선택");
+				continue;
+			}
 
 			switch (selectNo) {
 			case 1: // 추가
@@ -86,7 +102,7 @@ public class BoardExe {
 				run = false;
 				break;
 			default:
-				System.out.println("메뉴를 다시 선택하세요.");
+				System.out.println("1 ~ 5번중에 선택");
 			} // switch
 
 		} // while
@@ -124,7 +140,7 @@ public class BoardExe {
 		int page = 1;
 
 		while (true) {
-			
+
 			int start = (page - 1) * 5;
 			int end = page * 5;
 
@@ -152,12 +168,20 @@ public class BoardExe {
 				break;
 			} else if (str.equals("n")) {
 				page++;
-			}  else if (str.equals("p")) {
+			} else if (str.equals("p")) {
 				if (start > 0) {
 					page--;
 				}
 			} else {
-				int no = Integer.parseInt(str);
+				int no = 0;
+
+				try {
+					no = Integer.parseInt(str);
+				} catch (NumberFormatException e) {
+					System.out.println("글 번호를 다시 입력하세요!\n");
+					continue;
+				}
+
 				// 배열에서 조회
 				Board sboard = getBoard(no);
 				if (sboard == null) {
@@ -172,7 +196,18 @@ public class BoardExe {
 	} // boardList
 
 	void modifyBoard() {
-		int bno = userMenu("수정할 글 번호 입력");
+		int bno = 0;
+
+		while (true) {
+			try {
+				bno = userMenu("수정할 글 번호 입력");
+			} catch (NumberFormatException e) {
+				System.out.println("글 번호를 입력하세요");
+				continue;
+			}
+			break;
+		}
+
 		Board result = getBoard(bno);
 		if (result == null) {
 			System.out.println("조회한 결과가 없습니다.");
@@ -190,7 +225,17 @@ public class BoardExe {
 
 	void removeBoard() {
 		boolean result = false;
-		int bno = userMenu("삭제할 글 번호를 입력하세요");
+		int bno = 0;
+
+		while (true) {
+			try {
+				bno = userMenu("삭제할 글 번호를 입력하세요");
+			} catch (Exception e) {
+				System.out.println("글 번호를 입력하세요!!!");
+				continue;
+			}
+			break;
+		}
 
 		for (int i = 0; i < boards.length; i++) {
 			if (boards[i] != null && boards[i].getBoardNo() == bno) {
