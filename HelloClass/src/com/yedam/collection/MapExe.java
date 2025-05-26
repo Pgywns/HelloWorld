@@ -68,29 +68,27 @@ public class MapExe {
 		// 반복문
 		String keyword = "홍길동";
 		int score = 70;
-		
+
 		// 객체를 비교연산자(==)로 비교할 경우 false;
 		System.out.println(new Student2(keyword, score) == new Student2(keyword, score));
-		
+
 		// containsKey = key가 있는지 체크해서 boolean 타입으로 반환
 		if (map.containsKey(new Student2(keyword, score))) {
 			System.out.println("반: " + map.get(new Student2(keyword, score)));
 		}
-//		Set<Student2> set = map.keySet();
-//		for (Student2 std : set) {
-//			
-//		}
-//		Iterator<Student2> iter = set.iterator();
-//		while (iter.hasNext()) {
-//			Student2 std = iter.next();
-//			if (std.getStudentName().equals(keyword)) {
-//				System.out.println("점수: " + std.getScore());
-//				
-//				// 이름, score
-//				String cls = map.get(std);
-//				System.out.printf("이름: %s, 점수: %d, 반: %s\n", std.getStudentName(), std.getScore(), cls);
-//			}
-//		}
+		Set<Student2> set = map.keySet();
+		Iterator<Student2> iter = set.iterator();
+
+		while (iter.hasNext()) {
+			Student2 std = iter.next();
+
+			System.out.println("점수: " + std.getScore());
+
+			// 이름, score
+			String cls = map.get(std);
+			System.out.printf("이름: %s, 점수: %d, 반: %s\n", std.getStudentName(), std.getScore(), cls);
+
+		}
 
 	} // main
 
