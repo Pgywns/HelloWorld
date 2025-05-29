@@ -124,7 +124,7 @@ public class MainApp {
 
 		while (run) {
 			System.out.println("-------------------------------------------");
-			System.out.println("1.게시판 2.상품관리 3.재고관리 4.회원관리 5.로그아웃 6.종료");
+			System.out.println("1.게시판 2.상품관리 3.회원관리 4.로그아웃 5.종료");
 			System.out.print("선택>> ");
 			int menu = Integer.parseInt(scn.nextLine());
 
@@ -137,14 +137,17 @@ public class MainApp {
 					System.out.print("선택>> ");
 					int no = Integer.parseInt(scn.nextLine());
 					
-					List<Board> board = bsc.boardList();
-					for (int i = 0; i < board.size(); i++) {
-						System.out.printf("%s %s %s %s\n", board.get(i).getTitle(), board.get(i).getContent(), board.get(i).getUploaddate(), board.get(i).getWriter());
-					}
-					
 					switch (no) {
 					case 1:
-						
+						List<Board> board = bsc.boardList();
+						if (!board.isEmpty()) {
+							System.out.println("NO  TITLE     WRITER    DATE");
+							for (int i = 0; i < board.size(); i++) {
+								System.out.printf("%d %-10s %s %s\n", board.get(i).getNo(), board.get(i).getTitle(), board.get(i).getWriter(), board.get(i).getUploaddate());
+							}
+						} else {
+							System.out.println("글이 없습니다.");
+						}
 						break;
 						
 					case 2:
@@ -166,9 +169,6 @@ public class MainApp {
 				break;
 
 			case 3:
-				break;
-
-			case 4:
 				boolean memmanger = true;
 				while (memmanger) {
 					System.out.println("-------------------------------------------");
@@ -178,8 +178,8 @@ public class MainApp {
 					
 					switch (no) {
 					case 1:
-						System.out.println("ID         NAME   PHONE        EMAIL");
 						List<Member> member = msc.memberList();
+						System.out.println("ID         NAME   PHONE        EMAIL");
 						for (int i = 0; i < member.size(); i++) {
 							if (!member.get(i).getAdmin().equals("admin")) {
 								System.out.printf("%-10s %-5s %-11s %s\n", member.get(i).getId(), member.get(i).getName(), member.get(i).getPhone(), member.get(i).getEmail());
@@ -211,10 +211,10 @@ public class MainApp {
 				
 				break;
 
-			case 5:
+			case 4:
 				logout();
 				return;
-			case 6:
+			case 5:
 				System.out.println("종료되었습니다.");
 				return;
 			default :

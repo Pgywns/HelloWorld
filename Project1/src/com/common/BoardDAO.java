@@ -38,6 +38,6 @@ public class BoardDAO extends DAO {
 		}
 		
 		return null;
-	}
+	} // boardList
 	
 } // BoardDAO

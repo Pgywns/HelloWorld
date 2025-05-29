@@ -1,8 +1,10 @@
 delete from member
 where id = 'gywns1';
 
+delete from board
+where no = 1;
+
 select * from member;
-select * from board;
 
 select * from board;
 
