@@ -15,23 +15,33 @@ public class MemberServiceDAO implements MemberService {
 	}
 	
 	@Override
-	public boolean addMember() {
-		return false;
+	public boolean addMember(Member member) {
+		return dao.insert(member) == 1;
 	}
 
 	@Override
-	public boolean modifyMember() {
-		return false;
+	public boolean modifyMember(Member member) {
+		return dao.update(member) == 1;
 	}
 
 	@Override
-	public boolean removeMember() {
-		return false;
+	public boolean removeMember(String id) {
+		return dao.delete(id) == 1;
 	}
 
 	@Override
 	public List<Member> memberList() {
-		return null;
+		return dao.memberList();
+	}
+
+	@Override
+	public void findId(String name, String phone) {
+		dao.findid(name, phone);
+	}
+
+	@Override
+	public String findPw(String id) {
+		return dao.findpw(id);
 	}
 
 	
