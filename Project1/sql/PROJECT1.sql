@@ -5,6 +5,7 @@ delete from board
 where title = 'title';
 
 drop table board;
+drop table product;
 
 CREATE SEQUENCE auto_increment_no
 START  WITH 1
@@ -52,14 +53,14 @@ VALUES ('title', 'content', 'gywns');
 
 CREATE TABLE product (
     no         NUMBER       DEFAULT auto_increment_productno.NEXTVAL PRIMARY KEY,
-    name       VARCHAR2(20) NOT NULL,
+    name       VARCHAR2(20) UNIQUE NOT NULL,
     ea         NUMBER,
     price      NUMBER,
     country    VARCHAR2(20)
 );
 
 INSERT INTO product (name, price, ea, country)
-VALUES ('마이구미', 1000, 50, 'KOREA');
+VALUES ('이클립스', 2000, 50, 'KOREA');
 
 CREATE TABLE order (
     no         NUMBER       DEFAULT auto_increment_productno.NEXTVAL PRIMARY KEY,
