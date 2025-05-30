@@ -122,6 +122,7 @@ public class MemberDAO extends DAO {
 			return r;
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("이미 존재하는 아이디이거나 입력하신 정보가 잘못되었습니다.");
 			
 		} finally {
@@ -144,6 +145,7 @@ public class MemberDAO extends DAO {
 			int r = psmt.executeUpdate();
 			return r;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("존재하지 않는 아이디입니다.");
 			
 		} finally {
@@ -187,6 +189,7 @@ public class MemberDAO extends DAO {
 			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("정보를 변경하지 못했습니다. 다시 입력하세요.");
 		} finally {
 			disConnect();
 		}

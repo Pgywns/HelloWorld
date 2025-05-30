@@ -9,9 +9,7 @@ public class Board {
 	
 	public Board() {}
 
-	public Board(int no, String title, String content, String writer) {
-		super();
-		this.no = no;
+	public Board(String title, String content, String writer) {
 		this.title = title;
 		this.content = content;
 		this.writer = writer;

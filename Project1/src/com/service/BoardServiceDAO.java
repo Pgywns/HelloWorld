@@ -11,17 +11,17 @@ public class BoardServiceDAO implements BoardService {
 	
 	@Override
 	public boolean addBoard(Board board) {
-		return false;
+		return dao.insert(board) == 1;
 	}
 
 	@Override
-	public boolean modifyBoard() {
-		return false;
+	public boolean modifyBoard(Board board) {
+		return dao.update(board) == 1;
 	}
 
 	@Override
-	public boolean deleteBoard() {
-		return false;
+	public boolean deleteBoard(int no) {
+		return dao.delete(no) == 1;
 	}
 
 	@Override
