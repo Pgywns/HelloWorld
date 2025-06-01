@@ -21,12 +21,17 @@ public class ProductServiceDAO implements ProductService {
 
 	@Override
 	public boolean removeProduct(int no) {
-		return false;
+		return dao.delete(no) == 1;
 	}
 
 	@Override
 	public List<Product> ProductList() {
 		return dao.productList();
+	}
+
+	@Override
+	public boolean updateEa(Product product) {
+		return dao.updateea(product) == 1;
 	}
 	
 }

@@ -113,8 +113,8 @@ public class MemberDAO extends DAO {
 			psmt.setString(4, member.getPhone());
 			psmt.setString(5, member.getEmail());
 
-			if (member.getId().equals("") || member.getPw().equals("") || member.getName().equals("")) {
-				System.out.println("아이디, 비밀번호, 이름은 필수 항목입니다.");
+			if (member.getId().equals("") || member.getPw().equals("") || member.getName().equals("") || member.getPhone().equals("")) {
+				System.out.println("아이디, 비밀번호, 이름, 전화번호는 필수 항목입니다.");
 				return 0;
 			}
 			
@@ -146,7 +146,6 @@ public class MemberDAO extends DAO {
 			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("존재하지 않는 아이디입니다.");
 			
 		} finally {
 			disConnect();

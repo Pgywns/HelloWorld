@@ -53,7 +53,6 @@ public class BoardDAO extends DAO {
 			return r;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("해당하는 글이 없습니다.");
 
 		} finally {
 			disConnect();

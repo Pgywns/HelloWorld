@@ -70,20 +70,68 @@ public class ProductDAO extends DAO {
 	
 	public int update(Product product) {
 		String sql = "update product "
-				   + "set price = ? "
-				   + "   ,ea = ? "
-				   + "   ,country = ? "   
-		   		   + " where  no = ? ";
+				   + "set ea = ? "
+				   + "    ,price = ? ";
+
+		if (!product.getName().equals("")) {
+			sql = sql + "     , name = " + "'" + product.getName() + "'";
+		}
+			
+		if (!product.getCountry().equals("")) {
+			sql = sql + "     , country = " + "'" + product.getCountry() + "'";
+		}
 		
+		sql = sql + " where no = ?";
 		// 접속
 		getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
 
-			psmt.setInt(1, product.getPrice());
-			psmt.setInt(2, product.getEa());
-			psmt.setString(3, product.getCountry());
-			psmt.setInt(4, product.getNo());
+			psmt.setInt(1, product.getEa());
+			psmt.setInt(2, product.getPrice());
+			psmt.setInt(3, product.getNo());
+
+			int r = psmt.executeUpdate();
+			return r;
+		} catch (SQLException e) {
+			System.out.println("이미 존재하는 상품입니다.");
+		} finally {
+			disConnect();
+		}
+		return 0;
+
+	} // update
+	
+	public int delete(int no) {
+		String sql = "delete from product " + "where no = ?";
+		// 접속
+		getConnect();
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, no);
+
+			int r = psmt.executeUpdate();
+			return r;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return 0;
+	} // delete
+	
+	public int updateea(Product product) {
+		String sql = "update product "
+				   + "set ea = ea + ? "
+				   + " where no = ? ";
+		// 접속
+		getConnect();
+		try {
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setInt(1, product.getEa());
+			psmt.setInt(2, product.getNo());
 
 			int r = psmt.executeUpdate();
 			return r;
