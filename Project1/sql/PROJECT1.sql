@@ -1,11 +1,23 @@
+/*
 delete from member
 where id = 'gywns1';
 
 delete from board
-where title = 'title';
+where title = 'tadada';
+
+delete from product
+where name = '이클립스123';
+
+delete from userorder
+where no = 1;
+
+drop table member;
 
 drop table board;
+
 drop table product;
+
+drop table userorder;
 
 CREATE SEQUENCE auto_increment_no
 START  WITH 1
@@ -19,16 +31,24 @@ INCREMENT BY 1;
 
 DROP SEQUENCE auto_increment_productno;
 
+CREATE SEQUENCE auto_increment_orderno
+START  WITH 1
+INCREMENT BY 1;
+
+DROP SEQUENCE auto_increment_orderno;
+*/
+
 select * from member;
 select * from board;
 select * from product;
+select * from userorder;
 
 /* 테이블 생성, 값 추가 구문 */
 CREATE TABLE member (
     id     VARCHAR2(10) PRIMARY KEY,
     pw     VARCHAR2(10) NOT NULL,
     name   VARCHAR2(20) NOT NULL,
-    phone  VARCHAR2(15),
+    phone  VARCHAR2(15) NOT NULL,
     email  VARCHAR2(20),
     admin  VARCHAR2(10) DEFAULT 'user'
 );
@@ -36,8 +56,8 @@ CREATE TABLE member (
 INSERT INTO member (id, pw, name, phone, email, admin)
 VALUES ('gywns', '1234', '박효준', '1234-5678', 'gywns@naver.com', 'user');
 
-INSERT INTO member (id, pw, name, admin)
-VALUES ('admin', 'admin', 'admin', 'admin');
+INSERT INTO member (id, pw, name, phone, admin)
+VALUES ('admin', 'admin', 'admin', 'admin', 'admin');
 
 
 CREATE TABLE board (
@@ -60,12 +80,13 @@ CREATE TABLE product (
 );
 
 INSERT INTO product (name, price, ea, country)
-VALUES ('이클립스', 2000, 50, 'KOREA');
+VALUES ('이클립스', 2000, 40, 'KOREA');
 
-CREATE TABLE order (
-    no         NUMBER       DEFAULT auto_increment_productno.NEXTVAL PRIMARY KEY,
-    name       VARCHAR2(20) NOT NULL,
-    ea         NUMBER,
-    price      NUMBER,
-    country    VARCHAR2(20)
+CREATE TABLE userorder (
+    no            NUMBER    DEFAULT auto_increment_orderno.NEXTVAL PRIMARY KEY,
+    product_no    NUMBER,
+    product_name  VARCHAR2(20),
+    user_id       VARCHAR2(20),
+    product_ea    NUMBER,
+    product_price NUMBER
 );
