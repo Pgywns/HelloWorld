@@ -80,7 +80,7 @@ CREATE TABLE product (
 );
 
 INSERT INTO product (name, price, ea, country)
-VALUES ('이클립스', 2000, 40, 'KOREA');
+VALUES ('아이셔', 1000, 30, 'KOREA');
 
 CREATE TABLE userorder (
     no            NUMBER    DEFAULT auto_increment_orderno.NEXTVAL PRIMARY KEY,

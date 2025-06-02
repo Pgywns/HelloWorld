@@ -80,3 +80,4 @@ db --------------------------------------------------------------------
 board (no(pk), title(not null), content, date, writer)
 member(id(pk), pw(not null), name(not null), phone, email, admin)
 product(no(pk), name(not null), ea, price, country)
+order(no(pk), memberid, productname, price)

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DAO {
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String url = "jdbc:oracle:thin:@192.168.0.19:1521:xe";
 	String id = "project1";
 	String pass = "project1";
 	Connection conn;

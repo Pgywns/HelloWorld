@@ -1,6 +1,5 @@
 package com.app;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -391,7 +390,7 @@ public class MainApp {
 						System.out.print("원산지>> ");
 						country = scn.nextLine();
 
-						Product addproduct = new Product(name, price, ea, country);
+						Product addproduct = new Product(name, ea, price, country);
 
 						if (psc.addProduct(addproduct)) {
 							System.out.println("상품이 등록되었습니다.");
@@ -505,13 +504,19 @@ public class MainApp {
 					switch (no) {
 					case 1: // 회원목록
 						List<Member> member = msc.memberList();
-						System.out.println("ID         NAME   PHONE        EMAIL");
-						for (int i = 0; i < member.size(); i++) {
-							if (!member.get(i).getAdmin().equals("admin")) {
-								System.out.printf("%-10s %-5s %-11s %s\n", member.get(i).getId(),
-										member.get(i).getName(), member.get(i).getPhone(), member.get(i).getEmail());
-							}
+						
+						if (member.size() > 1) {
+							System.out.println("ID         NAME   PHONE        EMAIL");
+							for (int i = 0; i < member.size(); i++) {
+								if (!member.get(i).getAdmin().equals("admin")) {
+									System.out.printf("%-10s %-5s %-11s %s\n", member.get(i).getId(),
+											member.get(i).getName(), member.get(i).getPhone(), member.get(i).getEmail());
+								}
+							}							
+						} else {
+							System.out.println("회원이 없습니다.");
 						}
+						
 						break;
 
 					case 2: // 회원삭제
