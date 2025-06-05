@@ -10,6 +10,8 @@ import com.yedam.vo.BoardVO;
 
 public interface BoardMapper {
 	public List<BoardVO> selectList();
+	public BoardVO selectBoard(int bno);
+	public int updateReadCnt(int bno);
 	public int insertBoard(BoardVO board);
 	public int updateBoard(BoardVO board);
 	public int deleteBoard(int bno);
