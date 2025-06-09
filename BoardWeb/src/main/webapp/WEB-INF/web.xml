@@ -13,6 +13,7 @@
   	<url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
+  <!-- 처음 열렸을 때 페이지 -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

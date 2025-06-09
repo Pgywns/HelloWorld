@@ -13,8 +13,8 @@ public class BoardServiceImpl implements BoardService {
 	BoardMapper mapper = sqlSession.getMapper(BoardMapper.class);
 	
 	@Override
-	public List<BoardVO> boardList() {
-		return mapper.selectList();
+	public List<BoardVO> boardList(int page) {
+		return mapper.selectListWithPaging(page);
 	}
 
 	@Override
@@ -38,6 +38,35 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public boolean modifyBoard(BoardVO board) {
+		int r = mapper.updateBoard(board);
+		
+		if (r == 1) {
+			sqlSession.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean removeBoard(int bno) {
+		int r = mapper.deleteBoard(bno);
+		
+		if (r == 1) {
+			sqlSession.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public List<BoardVO> selectListWithPaging(int page) {
+		return mapper.selectListWithPaging(page);
 	}
 
 }
