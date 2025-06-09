@@ -51,7 +51,13 @@
 			<%} %>
 			
 			<% for (int p = paging.getStart(); p <= paging.getEnd(); p++) { %>
+			
+			<%if (p == paging.getCurrentPage()) { %>
+			<li class="page-item active" aria-current="page"><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
+			<% } else { %>
 			<li class="page-item"><a class="page-link" href="boardList.do?page=<%=p %>"><%=p %></a></li>
+			<% } %>
+			
 			<% } %>
 			
 			<%if(!paging.isNext()) {%>
