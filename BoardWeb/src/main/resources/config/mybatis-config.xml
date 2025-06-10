@@ -10,6 +10,8 @@
 
 	<typeAliases>
 		<typeAlias alias="Board" type="com.yedam.vo.BoardVO"/>
+		<typeAlias alias="Search" type="com.yedam.common.SearchDTO"/>
+		<typeAlias alias="Member" type="com.yedam.vo.MemberVO"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -28,5 +30,6 @@
 
 	<mappers>
 		<mapper resource="com/yedam/mapper/BoardMapper.xml" />
+		<mapper resource="com/yedam/mapper/MemberMapper.xml" />
 	</mappers>
 </configuration>

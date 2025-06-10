@@ -1,6 +1,7 @@
 package com.yedam.control;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,11 +24,19 @@ public class ModifyBoardControl implements Control {
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
 
+		// 추가 파라미터
+		String page = req.getParameter("page");
+		String sc = req.getParameter("searchCondition");
+		String kw = req.getParameter("keyword");
+		
 		BoardService svc = new BoardServiceImpl();
 		
 		if (req.getMethod().equals("GET")) {
 			BoardVO board = svc.getBoard(Integer.parseInt(bno));
 			req.setAttribute("board", board);
+			req.setAttribute("page", page);
+			req.setAttribute("searchCondition", sc);
+			req.setAttribute("keyword", kw);
 			
 			// 요청 재지정
 			req.getRequestDispatcher("WEB-INF/jsp/modifyForm.jsp").forward(req, resp);
@@ -39,7 +48,7 @@ public class ModifyBoardControl implements Control {
 			
 			svc.modifyBoard(board);
 			
-			resp.sendRedirect("boardList.do");
+			resp.sendRedirect("boardList.do?page=" + page + "&searchCondition=" + sc + "&keyword=" + URLEncoder.encode(kw, "UTF-8"));
 		}
 	}
 

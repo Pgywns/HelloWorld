@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:forward page="boardList.do"/>
 	<%
 	// 주석문
 	String str = "Hello, World";
@@ -21,7 +22,7 @@
 	} // for
 	
 	BoardService svc = new BoardServiceImpl();
-	List<BoardVO> list = svc.boardList();
+	List<BoardVO> list = svc.boardList(1);
 	out.print("<ul>");	
 			
 	for (BoardVO board : list) {

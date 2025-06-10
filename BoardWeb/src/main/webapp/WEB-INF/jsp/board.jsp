@@ -4,11 +4,18 @@
 <jsp:include page="../include/header.jsp" />
 <%
 BoardVO board = (BoardVO) request.getAttribute("board");
+String pg = (String) request.getAttribute("page");
+String sc = (String) request.getAttribute("searchCondition");
+String kw = (String) request.getAttribute("keyword");
+String logId = (String) session.getAttribute("logId");
 %>
 <h3>상세화면</h3>
 
 <form action="modifyBoard.do">
 <input type="hidden" name="bno" value="<%= board.getBoardNo() %>">
+<input type="hidden" name="page" value="<%=pg %>">
+<input type="hidden" name="searchCondition" value="<%=sc %>">
+<input type="hidden" name="keyword" value="<%=kw %>">
 	<table class="table">
 		<tr>
 			<th>글 번호</th>
@@ -33,9 +40,15 @@ BoardVO board = (BoardVO) request.getAttribute("board");
 			<td colspan="3"><%=board.getWriteDate()%></td>
 		</tr>
 		<tr>
+			<%if (!board.getWriter().equals(logId)) { %>
+			<td colspan="4" align="center"><input type="submit" value="수정"
+				class="btn btn-warning" disabled>
+				<button class="btn btn-danger" type="button" disabled>삭제</button></td>
+			<%} else { %>
 			<td colspan="4" align="center"><input type="submit" value="수정"
 				class="btn btn-warning">
 				<button class="btn btn-danger" type="button">삭제</button></td>
+			<%} %>
 		</tr>
 	</table>
 </form>

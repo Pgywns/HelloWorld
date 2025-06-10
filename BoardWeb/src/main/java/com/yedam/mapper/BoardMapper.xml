@@ -7,16 +7,42 @@
 	<!-- 조회(selectBoard) -->
 	<select id="selectList" resultType="Board">
 		select * from tbl_board
-		order
-		by board_no
+		order by board_no desc
+	</select>
+
+	<select id="selectCount" parameterType="Search" resultType="int">
+		select COUNT(board_no)
+		from   tbl_board
+		<choose>
+        	<when test="searchCondition != null and searchCondition == 'T'.toString()">
+        		where title like '%'||#{keyword}||'%'
+        	</when>
+        	<when test="searchCondition != null and searchCondition == 'W'.toString()">
+        		where writer like '%'||#{keyword}||'%'
+        	</when>
+        	<when test="searchCondition != null and searchCondition == 'TW'.toString()">
+        		where (title like '%'||#{keyword}||'%') or (writer like '%'||#{keyword}||'%')
+        	</when>
+        </choose>
 	</select>
 
 	<!-- 페이징 조회 -->
-	<select id="selectListWithPaging" parameterType="int" resultType="Board">
+	<select id="selectListWithPaging" parameterType="Search" resultType="Board">
 		select b.*
 		from (select rownum rn, a.*
 		     from (select *
 		           from tbl_board
+		           <choose>
+		           	<when test="searchCondition != null and searchCondition == 'T'.toString()">
+		           		where title like '%'||#{keyword}||'%'
+		           	</when>
+		           	<when test="searchCondition != null and searchCondition == 'W'.toString()">
+		           		where writer like '%'||#{keyword}||'%'
+		           	</when>
+		           	<when test="searchCondition != null and searchCondition == 'TW'.toString()">
+		           		where (title like '%'||#{keyword}||'%') or (writer like '%'||#{keyword}||'%')
+		           	</when>
+		           </choose>
 		           order by board_no) a) b
 		     where b.rn > (#{page} -1) * 5
 		<![CDATA[

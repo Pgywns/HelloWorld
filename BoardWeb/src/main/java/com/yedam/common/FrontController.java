@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.control.AddBoardControl;
 import com.yedam.control.BoardControl;
 import com.yedam.control.BoardListControl;
+import com.yedam.control.LoginControl;
+import com.yedam.control.LoginFormControl;
+import com.yedam.control.LogoutControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.RemoveBoardControl;
 
@@ -37,13 +40,18 @@ public class FrontController extends HttpServlet {
 		map.put("/addBoard.do", new AddBoardControl());
 		map.put("/modifyBoard.do", new ModifyBoardControl());
 		map.put("/removeBoard.do", new RemoveBoardControl());
+		
+		map.put("/loginForm.do", new LoginFormControl()); // 화면
+		map.put("/login.do", new LoginControl()); // id, pw 로그인 처리
+		map.put("/logout.do", new LogoutControl());
 	}
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// url이 호출(http://localhots:8080/BoardWeb/boardList.do) -> 페이지 호출 -> Control
 		String uri = req.getRequestURI(); // /BoardWeb/boardList.do
-		String page = uri.substring(9); // /boardList.do
+		String context = req.getContextPath(); // /BoardWeb
+		String page = uri.substring(context.length()); // /boardList.do
 		Control sub = map.get(page); // .do 이름이 키 값이기 때문에 밸류인 Control 형태의 변수에 저장
 		sub.exec(req, resp); // 각 Control에 있는 exec 메소드 호출
 	}
