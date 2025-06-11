@@ -16,6 +16,7 @@ import com.yedam.control.BoardListControl;
 import com.yedam.control.LoginControl;
 import com.yedam.control.LoginFormControl;
 import com.yedam.control.LogoutControl;
+import com.yedam.control.MemberListControl;
 import com.yedam.control.ModifyBoardControl;
 import com.yedam.control.RemoveBoardControl;
 
@@ -35,15 +36,19 @@ public class FrontController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// boardList.do - 글목록 출력 기능
-		map.put("/boardList.do", new BoardListControl());
-		map.put("/board.do", new BoardControl());
+		map.put("/boardList.do", new BoardListControl()); // 글 목록
+		map.put("/board.do", new BoardControl()); // 글 상세
 		map.put("/addBoard.do", new AddBoardControl());
 		map.put("/modifyBoard.do", new ModifyBoardControl());
 		map.put("/removeBoard.do", new RemoveBoardControl());
 		
+		// 회원 관련
 		map.put("/loginForm.do", new LoginFormControl()); // 화면
 		map.put("/login.do", new LoginControl()); // id, pw 로그인 처리
-		map.put("/logout.do", new LogoutControl());
+		map.put("/logout.do", new LogoutControl()); // 로그아웃
+		
+		// 회원 목록
+		map.put("/memberList.do", new MemberListControl()); // 
 	}
 	
 	@Override

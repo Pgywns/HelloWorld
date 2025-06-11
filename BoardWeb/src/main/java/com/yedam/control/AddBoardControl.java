@@ -22,7 +22,7 @@ public class AddBoardControl implements Control {
 		if (req.getMethod().equals("GET")) {
 
 			// 요청한 페이지(getRequestDispatcher)로 이동(forward)
-			req.getRequestDispatcher("WEB-INF/jsp/addBoard.jsp").forward(req, resp);
+			req.getRequestDispatcher("user/addBoard.tiles").forward(req, resp);
 
 		} else if (req.getMethod().equals("POST")) {
 			String title = req.getParameter("title");

@@ -29,7 +29,12 @@ public class LoginControl implements Control {
 			HttpSession session = req.getSession(); // cookie
 			session.setAttribute("logId", member.getMemberId());
 			
-			resp.sendRedirect("addBoard.do");
+			if (member.getResponsibility().equals("User")) {
+				resp.sendRedirect("addBoard.do");
+			} else if (member.getResponsibility().equals("Admin")) {
+				resp.sendRedirect("memberList.do");
+			}
+			
 		} else {
 			// 로그인 화면으로 이동
 			req.setAttribute("msg", "ID와 PW를 확인하세요.");
