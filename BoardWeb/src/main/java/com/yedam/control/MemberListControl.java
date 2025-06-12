@@ -27,7 +27,7 @@ public class MemberListControl implements Control {
 		req.setAttribute("memberList", list);
 		
 		// 출력 jsp
-		req.getRequestDispatcher("WEB-INF/jsp/member/memberList.jsp").forward(req, resp);
+		req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yedam.common.Control;
 import com.yedam.common.PageDTO;
@@ -47,7 +48,17 @@ public class BoardListControl implements Control {
 		req.setAttribute("search", search);
 		
 		// 요청재지정(페이지 이동)
-		req.getRequestDispatcher("user/boardList.tiles").forward(req, resp);
+		HttpSession session = req.getSession();
+		String auth = (String) session.getAttribute("auth");
+		
+		if (auth != null && auth.equals("User")) {
+			req.getRequestDispatcher("user/boardList.tiles").forward(req, resp);			
+		} else if (auth != null && auth.equals("Admin")) {
+			req.getRequestDispatcher("admin/board/boardList.tiles").forward(req, resp);			
+		} else {
+			req.getRequestDispatcher("user/boardList.tiles").forward(req, resp);
+		}
+		
 	}
 	
 }
