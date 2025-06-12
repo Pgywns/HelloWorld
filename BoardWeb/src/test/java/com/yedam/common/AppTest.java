@@ -11,7 +11,7 @@ public class AppTest {
 		ReplyService svc = new ReplyServiceImpl();
 		
 		// 댓글 목록조회
-		List<ReplyVO> list = svc.replyList(221);
+		List<ReplyVO> list = svc.replyList(213);
 		
 		for (ReplyVO reply : list) {
 			System.out.println(reply.toString());
@@ -29,7 +29,7 @@ public class AppTest {
 		svc.addReply(reply);
 		
 		// 댓글 삭제
-		svc.removeReply(6);
+		svc.removeReply(4);
 		
 	}
 }
