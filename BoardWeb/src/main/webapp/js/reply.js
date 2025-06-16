@@ -19,25 +19,33 @@ showReplyList();
 function showReplyList() {
 	document.querySelector('#target').innerHTML = "";
 	
-	svc.replyList({ bno, page }
-		, result => { // 성공 콜백함수
-			if (result.length == 0) {
-				page = page - 1;
-				showReplyList();
-			}
-			let ul = document.querySelector('#target');
-			let template = document.querySelector('#target li');
-			
-			for (let reply of result) {
-				template = makeTemplate(reply);
+	svc.replyCount(bno
+			, result => {
+				let totalCnt = result.totalCnt
+				let realEnd = Math.ceil(totalCnt / 5);
+		
+				if (realEnd != 0 && page == realEnd + 1) {
+					page = realEnd;
+				}
 				
-				ul.insertAdjacentHTML("beforeend", template);
+				svc.replyList({ bno, page }
+						, result => { // 성공 콜백함수
+							let ul = document.querySelector('#target');
+							let template = document.querySelector('#target li');
+
+							for (let reply of result) {
+								template = makeTemplate(reply);
+								
+								ul.insertAdjacentHTML("beforeend", template);
+							}
+							
+							// 댓글페이지
+							showPageList();
+						}
+						, err => console.log(err)	
+					);
 			}
-			
-			// 댓글페이지
-			showPageList();
-		}
-		, err => console.log(err)		
+			,err => console.log(err)
 	);
 }
 // 이벤트
@@ -190,5 +198,5 @@ async function deleteReply(e) {
 			}
 		}
 		, err => console.log(err)
-	)
-}
+	);
+};
