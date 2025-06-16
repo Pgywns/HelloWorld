@@ -11,7 +11,7 @@ public class AppTest {
 		ReplyService svc = new ReplyServiceImpl();
 		
 		// 댓글 목록조회
-		List<ReplyVO> list = svc.replyList(213);
+		List<ReplyVO> list = svc.replyList(213, 1);
 		
 		for (ReplyVO reply : list) {
 			System.out.println(reply.toString());

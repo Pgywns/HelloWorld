@@ -6,9 +6,14 @@
 
 	<!-- 모두 조회 -->
 	<select id="selectReply" resultType="Reply" parameterType="int">
-		select *
-		from   tbl_reply
-		where  board_no = #{boardNo}
+		select a.*
+		from (select   /*+INDEX_DESC (r_pk_reply) */rownum rn, r.*
+		      from     tbl_reply r
+		      where    board_no = #{bno}) a
+		where a.rn > (#{page} - 1) * 5
+		<![CDATA[
+		and   a.rn <= (#{page} * 5)
+		]]>
 	</select>
 	
 	<!-- 조회 -->
@@ -32,4 +37,11 @@
 		delete from tbl_reply
 		where  reply_no = #{boardNo}
 	</delete>
+	
+	<!-- 댓글 건수 -->
+	<select id="selectTotal" parameterType="int" resultType="int">
+		select COUNT(1)
+		from   tbl_reply
+		where  board_no = #{bno}
+	</select>
 </mapper>

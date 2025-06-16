@@ -9,7 +9,7 @@ svc.replyList(221, // 게시글 번호
 		result.forEach(function(item) {
 			let tr = makeRow(item);
 			document.querySelector('table:nth-of-type(2) tbody').appendChild(tr);
-		}); // 댓글수만큼 tr 생성`
+		}); // 댓글수만큼 tr 생성
 	},
 	function(err){ // 실패 콜백함수
 		console.error(err);
