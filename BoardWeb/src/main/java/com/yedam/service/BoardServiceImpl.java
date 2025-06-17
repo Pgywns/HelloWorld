@@ -1,6 +1,7 @@
 package com.yedam.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -8,6 +9,7 @@ import com.yedam.common.DataSource;
 import com.yedam.common.SearchDTO;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.EventVO;
 
 public class BoardServiceImpl implements BoardService {
 	SqlSession sqlSession = DataSource.getInstance().openSession();
@@ -15,7 +17,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<BoardVO> boardList(SearchDTO search) {
-		return mapper.selectListWithPaging(search);
+//		return mapper.selectListWithPaging(search);
+		return mapper.selectList();
 	}
 
 	@Override
@@ -73,6 +76,40 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getTotalCount(SearchDTO search) {
 		return mapper.selectCount(search);
+	}
+
+	@Override
+	public List<Map> chartCount() {
+		return mapper.selectUserByCount();
+	}
+
+	@Override
+	public List<EventVO> eventList() {
+		return mapper.selectEvent();
+	}
+
+	@Override
+	public boolean addEvent(EventVO event) {
+		int r = mapper.insertEvent(event);
+		
+		if (r == 1) {
+			sqlSession.commit();
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public boolean removeEvent(EventVO event) {
+		int r = mapper.deleteEvent(event);
+		
+		if (r == 1) {
+			sqlSession.commit();
+			return true;
+		}
+		
+		return false;
 	}
 
 }

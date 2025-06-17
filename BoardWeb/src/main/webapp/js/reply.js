@@ -23,10 +23,8 @@ function showReplyList() {
 			, result => {
 				let totalCnt = result.totalCnt
 				let realEnd = Math.ceil(totalCnt / 5);
-		
-				if (realEnd != 0 && page == realEnd + 1) {
-					page = realEnd;
-				}
+			
+				page = page > realEnd && realEnd != 0 ? realEnd : page;
 				
 				svc.replyList({ bno, page }
 						, result => { // 성공 콜백함수

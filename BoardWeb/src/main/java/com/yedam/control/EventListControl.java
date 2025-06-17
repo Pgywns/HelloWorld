@@ -13,23 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
-import com.yedam.service.ReplyService;
-import com.yedam.service.ReplyServiceImpl;
-import com.yedam.vo.ReplyVO;
+import com.yedam.service.BoardService;
+import com.yedam.service.BoardServiceImpl;
+import com.yedam.vo.EventVO;
 
-public class ReplyListControl implements Control {
+public class EventListControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// ReplyList.do => json 문자열 반환
-		// 자바 객체 -> json 문자열로 반환 (Gson)
 		resp.setContentType("text/json;charset=utf-8");
 		
-		String bno = req.getParameter("bno");
-		String page = req.getParameter("page");
-		
-		ReplyService svc = new ReplyServiceImpl();
-		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno), Integer.parseInt(page));
+		BoardService svc = new BoardServiceImpl();
+		List<EventVO> list = svc.eventList();
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", list);

@@ -3,6 +3,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<link href="//cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script src="//cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
 <h3>상세화면</h3>
 
 <form action="modifyBoard.do">
@@ -62,53 +66,116 @@
 	<div class="header">
 		<input class="col-sm-8" id="reply">
 		<button class="col-sm-3 btn btn-primary" id="addReply">등록</button>
+		<button class="col-sm-3 btn btn-danger" id="delReply">삭제</button>
 	</div>
-	<div class="content">
-		<ul>
-			<li>
-				<span class="col-sm-2">글 번호</span>
-				<span class="col-sm-4">글 내용</span>
-				<span class="col-sm-2">작성자</span>
-				<span class="col-sm-2">작성일시</span>
-				<span class="col-sm-1"></span>
-			</li>		
-		</ul>
-		<ul id="target">
-			
-		</ul>
-	</div>
-	<div class="footer">
-<nav aria-label="...">
-	<ul class="pagination pagination-sm">
-		<li class="page-item disabled">
-			<span class="page-link">Previous</span>
-		</li>
-		
-		<li class="page-item">
-			<a class="page-link" href="#">1</a>
-		</li>
-		<li class="page-item">
-			<a class="page-link" href="#">2</a>
-		</li>
-		<li class="page-item">
-			<a class="page-link" href="#">3</a>
-		</li>
-		
-		<li class="page-item">
-		 	<a class="page-link" href="#">Next</a>
-		</li>
-	</ul>
-</nav>
-	</div>
+	<!-- 데이터테이블 적용 -->
+	<table id="example" class="display">
+	    <thead>
+	        <tr>
+	            <th>댓글번호</th>
+	            <th>내용</th>
+	            <th>작성자</th>
+	            <th>작성일시</th>
+	        </tr>
+	    </thead>
+	    <tfoot>
+	        <tr>
+	            <th>댓글번호</th>
+	            <th>내용</th>
+	            <th>작성자</th>
+	            <th>작성일시</th>
+	        </tr>
+	    </tfoot>
+	</table>
 </div>
 <!-- 댓글관련 페이지 -->
 
 <script>
 	let bno = "${board.boardNo}";
+	let page = "${page}"
 	let logId = "${logId}";
 	document.querySelector('button.btn-danger').addEventListener('click', function(){
 		location.href = 'removeBoard.do?bno=' + bno;
 	});
 </script>
-<script src="js/service.js"></script>
-<script src="js/reply.js"></script>
+
+<script>
+const table = new DataTable('#example', {
+    ajax: 'replyList.do?bno=' + bno + '&page=' + page,
+    columns: [
+        { data: 'replyNo' },
+        { data: 'reply' },
+        { data: 'replyer' },
+        { data: 'replyDate' }
+    ],
+    lengthMenu: [5, 10, 15, -1],
+    order: [[0, 'desc']]
+});
+
+// row 삭제
+table.on('click', 'tbody tr', (e) => {
+    let classList = e.currentTarget.classList;
+ 	
+    if (classList.contains('selected')) {
+        classList.remove('selected');
+    }
+    else {
+        table.rows('.selected').nodes().each((row) => row.classList.remove('selected'));
+        classList.add('selected');
+    }
+    
+});
+ 
+document.querySelector('#delReply').addEventListener('click', async function () {
+	
+	if (!document.querySelector('tr.selected')) {
+		alert("댓글을 선택하세요");
+		return;
+	}
+	
+	let rno = document.querySelector('tr.selected').children[0].innerHTML;
+	
+ 	let data = await fetch('removeReply.do?rno=' + rno);
+ 	let result = await data.json();
+ 	
+ 	if (result.retCode == 'Success') {
+	    table.row('.selected').remove().draw(false);
+ 		alert("삭제 성공");
+ 	} else {
+		alert("처리 실패!");
+	}
+ 	
+});
+
+// ror 추가
+function addNewRow() {
+	// ajax
+	let reply = document.querySelector('#reply').value;
+	if (!reply || !logId) {
+		alert("댓글을 입력하세요!");
+		return;
+	}
+	
+	fetch('addReply.do?', {
+		method: 'post',
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		body: 'bno=' + bno + '&reply=' + reply + '&replyer=' + logId
+	})
+	.then(data => data.json())
+	.then(result => {
+		let rvo = result.retVal;
+		//  화면추가
+	    table.row
+	        .add({replyNo: rvo.replyNo,
+	       		  reply: rvo.reply,
+	       		  replyer: rvo.replyer,
+	       		  replyDate: rvo.replyDate
+	        	
+	        })
+	        .draw(false);
+	})
+	.catch(err => console.log(err));
+}
+
+document.querySelector('#addReply').addEventListener('click', addNewRow);
+</script>
