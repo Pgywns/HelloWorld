@@ -29,6 +29,7 @@ public class LoginControl implements Control {
 			HttpSession session = req.getSession(); // cookie
 			session.setAttribute("logId", member.getMemberId());
 			session.setAttribute("auth", member.getResponsibility());
+			session.setAttribute("img", member.getImg());
 			
 			if (member.getResponsibility().equals("User")) {
 				resp.sendRedirect("addBoard.do");

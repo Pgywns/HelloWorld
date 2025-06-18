@@ -53,7 +53,10 @@ values ('user06', 'user06', 'user06');
 insert into tbl_member (member_id, member_name, password, responsibility)
 values ('admin', 'admin', 'admin', 'Admin');
 
-select * from tbl_member;
+select * from tbl_member
+order by member_id;
+
+alter table tbl_member add img varchar2(100);
 
 create sequence reply_seq;
 -- ´ñ±ÛÅ×ÀÌºí

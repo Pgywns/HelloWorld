@@ -2,9 +2,7 @@ package com.yedam.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +24,8 @@ public class EventListControl implements Control {
 		BoardService svc = new BoardServiceImpl();
 		List<EventVO> list = svc.eventList();
 		
-		Map<String, Object> map = new HashMap<>();
-		map.put("data", list);
-		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(map);
+		String json = gson.toJson(list);
 		
 		System.out.println(json);
 		
