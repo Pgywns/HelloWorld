@@ -72,7 +72,7 @@ document.querySelector('#sido').addEventListener('change', function() {
 // [].push(), [].unshift(), [].pop, [].shift() => [].splice()
 // reduce();
 
-let result = [1, 3, 5, 7].reduce(function(acc, elem, idx, ary) {
+/* let result = [1, 3, 5, 7].reduce(function(acc, elem, idx, ary) {
 	console.log(acc, elem);
 	if (elem > 4) {
 		let li = document.createElement('li');
@@ -81,4 +81,4 @@ let result = [1, 3, 5, 7].reduce(function(acc, elem, idx, ary) {
 	}
 	return acc;
 }, document.querySelector('#target'));
-console.log('결과: ', result);
+console.log('결과: ', result); */
