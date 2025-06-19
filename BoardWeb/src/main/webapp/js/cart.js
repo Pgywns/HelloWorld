@@ -34,7 +34,7 @@ const basket = {
 		if (elem.classList.contains('up')) { // elem의 클래스 중에서 up이 있는 클래스
 			currentQty++; // 수량 증가
 		} else if (elem.classList.contains('down')) { 
-			if (!currentQty) { // 수량이 0일 때는 수량 감소 불가
+			if (!(currentQty - 1)) { // 수량이 1일 때는 수량 감소 불가
 				return;
 			}
 			currentQty--;
@@ -87,7 +87,7 @@ const basket = {
 		})
 		document.querySelector('div.sumcount>span').innerText = sumQty;
 		document.querySelector('div.summoney>span').innerText = sumPrice;
-		}
+	}
 }
 
 cartItems.forEach(item => {

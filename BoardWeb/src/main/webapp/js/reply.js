@@ -21,7 +21,7 @@ function showReplyList() {
 	
 	svc.replyCount(bno
 			, result => {
-				let totalCnt = result.totalCnt
+				let totalCnt = result.totalCnt;
 				let realEnd = Math.ceil(totalCnt / 5);
 			
 				page = page > realEnd && realEnd != 0 ? realEnd : page;
@@ -55,7 +55,7 @@ function pagingEvent() {
 		tag.addEventListener('click', function(e) {
 		page = e.target.dataset.page;
 		showReplyList();
-		})
+		});
 	});	
 	document.querySelectorAll('#target li').forEach(elem => {
 		elem.addEventListener('mouseover', () => { elem.style.background = 'gray' });
@@ -86,7 +86,7 @@ function addReplyHandler(e) {
 			}
 		}
 		, err => console.log(err)
-	)
+	);
 }
 
 // 댓글 페이징 출력
@@ -128,7 +128,7 @@ function showPageList() {
 				if (p == page) {
 					str = `<li class="page-item active" aria-current="page">
 							 <span class="page-link" href="#">${p}</span>
-						   </li>`
+						   </li>`;
 				} else {
 					str = `<li class="page-item">
 						     <a class="page-link" href="#" data-page="${p}">${p}</a>
@@ -167,8 +167,7 @@ function makeTemplate(reply = {}) {
 			<span class="col-sm-2">${reply.replyer}</span>
 			<span class="col-sm-2">${rdate}</span>
 			<span class="col-sm-1"><button onclick="deleteReply(event)" class="btn btn-danger">삭제</button></span>
-		</li>
-	`;
+		</li>`;
 	
 	return template; // li 반환
 }
@@ -197,4 +196,4 @@ async function deleteReply(e) {
 		}
 		, err => console.log(err)
 	);
-};
+}
